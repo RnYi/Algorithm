@@ -1,4 +1,1 @@
-.*
-!.gitignore
-!.clang-format
 *.exe
