@@ -1,2 +1,4 @@
--Wall
+-Weverything
+-Wno-c++98-compat
+-Wno-missing-prototypes
 --target=x86_64-w64-mingw32
