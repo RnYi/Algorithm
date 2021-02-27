@@ -1,4 +1,4 @@
 -Weverything
--Wno-c++98-compat
+-Wno-c++98-compat-pedantic
 -Wno-missing-prototypes
 --target=x86_64-w64-mingw32
