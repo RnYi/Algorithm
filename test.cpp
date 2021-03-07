@@ -1,56 +1,56 @@
-// Leetcode
+// Leetcode 678
 #include <stdio.h>
 #include <string>
-#include<unordered_map>
-#include <utility>
+#include <vector>
 using namespace std;
 
-string fractionToDecimal(int numerator, int denominator)
+void init(const string& str, vector<vector<bool>>& pa)
 {
-    long long num=numerator;
-    long long denom=denominator;
-    string ans;
-    unordered_map<long long,int> record;
-    if(num*denom<0){
-        ans.append("-");
-    }
-    num=abs(num);
-    denom=abs(denom);
-    long long tmp;
-    long long res;
-    tmp=num/denom;
-    res=num%denom;
-    ans.append(to_string(tmp));
-    if(res==0){
-        return ans;
-    }
-    ans.append(".");
-    res=res*10;
-    while(res!=0){
-        if(record.find(res)!=record.end()){
-            int s_idx=record[res];
-            string n_ans="";
-            n_ans.append(ans.substr(0,s_idx));
-            n_ans.append("(");
-            n_ans.append(ans.substr(s_idx,ans.size()));
-            n_ans.append(")");
-            ans=n_ans;
-            break;
+    int N=str.length();
+    for(int j=1;j<N;++j){
+        for(int i=j-1;i>=0;--i){
+            pa[i][j]=(str[i]==str[j]) && pa[i+1][j-1];
         }
-        tmp=res/denom;
-        int index=ans.size();
-        record[res]=index;
-        ans.append(to_string(tmp));
-        res=res%denom;
-        res*=10;
     }
+}
+
+void backtrace(int start, const string& str, vector<vector<bool>>& pa, vector<string>& cur, vector<vector<string>>& ans)
+{
+    int N=str.length();
+    if(start==N){
+        ans.push_back(cur);
+        return;
+    }
+    for(int end=start;end<N;++end){
+        if(!pa[start][end]){
+            continue;
+        }
+        cur.push_back(str.substr(start,end-start+1));
+        backtrace(end+1, str, pa, cur, ans);
+        cur.pop_back();
+    }
+}
+
+vector<vector<string>> partition(string s)
+{
+    int N=s.length();
+    vector<vector<bool>> pa(N,vector<bool>(N,true));
+    init(s, pa);
+    vector<vector<string>> ans;
+    vector<string> cur;
+    backtrace(0, s, pa, cur, ans);
     return ans;
 }
-    
+
 int main(void)
 {
-    int numerator=1;
-    int denominator=6;
-    printf("%s",fractionToDecimal(numerator, denominator).c_str());
+    string s="aab";
+    auto ans=partition(s);
+    for(auto& part:ans){
+        for(auto& each:part){
+            printf("%s\t",each.c_str());
+        }
+            printf("\n");
+    }
     return 0;
 }

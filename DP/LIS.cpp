@@ -59,11 +59,11 @@ void largestIncreaseSubseq(int* arr,int n)
         cout << minTail[i] << ' ';
     }
 
-    delete minTail;
-    delete maxLens;
+    delete[] minTail;
+    delete[] maxLens;
 }
 
-int main(int argc, char const *argv[])
+int main(void)
 {
     int n;
     cin >> n;
