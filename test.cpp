@@ -1,53 +1,64 @@
 // Leetcode 732
-#include <algorithm>
 #include <stdio.h>
+#include <utility>
+#include <vector>
+#include <list>
 using namespace std;
 
-// 线段树离散处理 复杂度O(log(1e9)*n)
-const int MX = 1e5 + 5;   // 数据量
-const int M = 1e9;        // 数据范围
-
-class MyCalendarThree {
+class MyHashMap {
+    vector<list<pair<int, int>>> data;
+    static const int base=769;
+    static int hash(int key){return key%base;}
 public:
-    int ls[MX], rs[MX], sum[MX], lz[MX];  // ls rs分别是左子树右子树的idx
-    int cnt, root;
+    /** Initialize your data structure here. */
+    MyHashMap(): data(base){
 
-    MyCalendarThree() {
-        ls[0] = rs[0] = sum[0] = lz[0] = 0;
-        cnt = 0;
-        root = ++cnt;
-        init_node(root);
-    }
-
-    void init_node(int rt) {
-        ls[rt] = rs[rt] = sum[rt] = lz[rt] = 0;
-    }
-
-    void pushUp(int rt) {
-        int l = ls[rt], r = rs[rt];
-        sum[rt] = max(sum[l] + lz[l], sum[r] + lz[r]);
-    }
-
-    void update(int L, int R, int l, int r, int& rt) {
-        if (rt == 0) {
-            rt = ++cnt;
-            init_node(rt);
-        }
-        if (L <= l && R >= r) {
-            lz[rt]++;
-            return;
-        }
-        int m = (l + r) >> 1;
-        if (L <= m) update(L, R, l, m, ls[rt]);
-        if (R > m) update(L, R, m + 1, r, rs[rt]);
-        pushUp(rt);
     }
     
-    int book(int start, int end) {
-        if (start < end) {
-            update(start, end - 1, 0, M, root);
+    /** value will always be non-negative. */
+    void put(int key, int value) {
+        int hk=hash(key);
+        auto& hl=data[hk];
+        for(auto it=hl.begin();it!=hl.end();++it){
+            if(it->first==key){
+                it->second=value;
+                return;
+            }
         }
-        return sum[root] + lz[root];
+        hl.push_back(make_pair(key, value));
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    int get(int key) {
+        int hk=hash(key);
+        auto hl=data[hk];
+        for(auto it=hl.begin();it!=hl.end();++it){
+            if(it->first==key){
+                return it->second;
+            }
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    void remove(int key) {
+        int hk=hash(key);
+        auto hl=data[hk];
+        for(auto it=hl.begin();it!=hl.end();++it){
+            if(it->first==key){
+                hl.erase(it);
+                return;
+            }
+        }
+
     }
 };
 
+int main(void)
+{
+    MyHashMap hm;
+    hm.put(1, 1);
+    hm.put(2, 2);
+    printf("%d",hm.get(1));
+    return 0;
+}

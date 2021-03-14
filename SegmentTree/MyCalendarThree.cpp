@@ -3,7 +3,6 @@
 #include <stdio.h>
 using namespace std;
 
-// 解法1
 class SegTree {
     using SegTreeNode = SegTree;
     int startTime, endTime;
