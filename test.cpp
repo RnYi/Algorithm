@@ -1,64 +1,52 @@
-// Leetcode 732
+// Leetcode 456
+#include <algorithm>
+#include <stack>
 #include <stdio.h>
-#include <utility>
 #include <vector>
-#include <list>
 using namespace std;
 
-class MyHashMap {
-    vector<list<pair<int, int>>> data;
-    static const int base=769;
-    static int hash(int key){return key%base;}
-public:
-    /** Initialize your data structure here. */
-    MyHashMap(): data(base){
-
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode()
+        : val(0)
+        , next(nullptr)
+    {
     }
-    
-    /** value will always be non-negative. */
-    void put(int key, int value) {
-        int hk=hash(key);
-        auto& hl=data[hk];
-        for(auto it=hl.begin();it!=hl.end();++it){
-            if(it->first==key){
-                it->second=value;
-                return;
-            }
-        }
-        hl.push_back(make_pair(key, value));
+    ListNode(int x)
+        : val(x)
+        , next(nullptr)
+    {
     }
-    
-    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
-    int get(int key) {
-        int hk=hash(key);
-        auto hl=data[hk];
-        for(auto it=hl.begin();it!=hl.end();++it){
-            if(it->first==key){
-                return it->second;
-            }
-        }
-        return -1;
-    }
-    
-    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
-    void remove(int key) {
-        int hk=hash(key);
-        auto hl=data[hk];
-        for(auto it=hl.begin();it!=hl.end();++it){
-            if(it->first==key){
-                hl.erase(it);
-                return;
-            }
-        }
-
+    ListNode(int x, ListNode* next)
+        : val(x)
+        , next(next)
+    {
     }
 };
 
+ListNode* deleteDuplicates(ListNode* head)
+{
+    ListNode* H = new ListNode();
+    H->next = head;
+    ListNode* pre = H;
+    ListNode* cur = head;
+    while(pre!=nullptr){
+        cur=pre->next;
+        if(cur!=nullptr && cur->next!=nullptr && cur->val==cur->next->val){
+            ListNode* next = cur->next;
+            while(next!=nullptr && next->val==cur->val){
+                next = next->next;
+            }
+            pre->next = next;
+        }else{
+            pre=cur;
+        }
+    }
+    return H->next;
+}
+
 int main(void)
 {
-    MyHashMap hm;
-    hm.put(1, 1);
-    hm.put(2, 2);
-    printf("%d",hm.get(1));
     return 0;
 }
