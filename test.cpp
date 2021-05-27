@@ -4,11 +4,21 @@
 #include <vector>
 using namespace std;
 
-vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& red_edges, vector<vector<int>>& blue_edges)
+int hammingDistance(int x, int y)
 {
+    x^=y;
+    int count=0;
+    while(x){
+        x&=(x-1);
+        ++count;
+    }
+    return count;
 }
 
 int main(void)
 {
+    int x=1;
+    int y=4;
+    printf("hammingDistance(x,y) = %d\n", hammingDistance(x,y));
     return 0;
 }

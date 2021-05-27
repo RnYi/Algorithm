@@ -1,13 +1,14 @@
-/*剑指offer15*/
-#include <iostream>
+// Leetcode 191
+#include <inttypes.h>
 using namespace std;
 
-int hammingWeight(uint32_t n) 
+int hammingWeight(uint32_t n)
 {
-    int cnt = 0;
-    while(n!=0){
-        cnt++;
-        n = n & (n - 1);
-    }
-    return cnt;
+    n = (n & 0x55555555) + ((n >> 1) & 0x55555555);
+    n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
+    n = (n & 0x0f0f0f0f) + ((n >> 4) & 0x0f0f0f0f);
+    n = (n & 0x00ff00ff) + ((n >> 8) & 0x00ff00ff);
+    n = (n & 0x0000ffff) + ((n >> 16) & 0x0000ffff);
+
+    return n;
 }
