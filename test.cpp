@@ -1,49 +1,24 @@
-#include <functional>
+#include <algorithm>
 #include <iostream>
 #include <queue>
-#include <typeinfo>
+#include <unordered_set>
 #include <utility>
 #include <vector>
+#include <wchar.h>
+
 using namespace std;
-
-inline bool inBound(int m, int n, int x, int y)
-{
-    return x >= 0 && x < m && y >= 0 && y < n;
-}
-
-bool isToeplitzMatrix(vector<vector<int>>& matrix)
-{
-    int m = matrix.size();
-    int n = matrix[0].size();
-    // 0,0
-    int sx, sy;
-    sx = m - 1;
-    sy = 0;
-    while (sy!=n) {
-        cout<<"sx: "<<sx<<'\t'<<"sy: "<<sy<<endl;
-        int val = matrix[sx][sy];
-        int x = sx, y = sy;
-        while (inBound(m, n, x, y)) {
-            if (matrix[x][y] != val) {
-                return false;
-            }
-            ++x;
-            ++y;
-        }
-        if (sx != 0) {
-            --sx;
-        } else {
-            ++sy;
-        }
-    }
-    return true;
-}
+using LL=long long;
 
 int main(void)
 {
-    vector<vector<int>> mat = {
-        {1,2}, {2,2}
-    };
-    printf("isToeplitzMatrix(mat) = %d\n", isToeplitzMatrix(mat));
+    int arr0[2][2]={{0,1},{2,3}};
+    int arr1[2][2]={};
+    memcpy(arr1, arr0, sizeof(arr0));
+    for(int i=0;i<2;++i){
+        for(int j=0;j<2;++j){
+            cout<<arr1[i][j]<<'\t';
+        }
+    }
+
     return 0;
 }

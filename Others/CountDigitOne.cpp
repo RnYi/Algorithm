@@ -22,7 +22,7 @@ int countDigitOne(int n)
             count += high * i;
         }
     }
-    return static_cast<int>(count);
+    return count;
 }
 
 int main(int argc, char const *argv[])
