@@ -9,16 +9,17 @@
 using namespace std;
 using LL=long long;
 
+template <typename T, size_t N>
+char (&ArraySizeHelper(T (&array)[N]))[N];
+#define arraysize(array) (sizeof(ArraySizeHelper(array)))
+
+void func(int* x){
+    cout<<x[0];
+}
+
 int main(void)
 {
-    int arr0[2][2]={{0,1},{2,3}};
-    int arr1[2][2]={};
-    memcpy(arr1, arr0, sizeof(arr0));
-    for(int i=0;i<2;++i){
-        for(int j=0;j<2;++j){
-            cout<<arr1[i][j]<<'\t';
-        }
-    }
-
+    int x[3];
+    func(x);
     return 0;
 }
