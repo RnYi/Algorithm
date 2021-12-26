@@ -1,4 +1,6 @@
-#include <algorithm>
+#include <iostream>
 
-using namespace std;
-using LL=long long;
+int main() {
+  std::cout << "Hello World\n";
+  return 0;
+}
