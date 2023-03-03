@@ -1,0 +1,17 @@
+# vim: set fenc=utf-8 ft=dosini:
+# see: https://github.com/skywind3000/asynctasks.vim/wiki/Task-Config
+
+[run]
+command="$(VIM_ROOT)/build/$(VIM_FILENOEXT)"
+output=terminal
+save=2
+
+[build:debug]
+command=clang++ "$(VIM_FILEPATH)" -o "$(VIM_ROOT)/build/$(VIM_FILENOEXT).exe" -g -Wall -Wextra
+output=quickfix
+save=2
+
+[build:release]
+command=clang++ "$(VIM_FILEPATH)" -o "$(VIM_ROOT)/build/$(VIM_FILENOEXT).exe" -O2 -Wall -Wextra
+output=quickfix
+save=2
