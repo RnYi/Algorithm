@@ -12,6 +12,7 @@
             "args": [],
             "stopOnEntry": false,
             "cwd": "${workspaceFolder}",
+            "internalConsoleOptions": "neverOpen"
         },
         {
             "name": "LLDB(Build and Debug)",
@@ -21,6 +22,7 @@
             "args": [],
             "stopOnEntry": false,
             "cwd": "${workspaceFolder}",
+            "internalConsoleOptions": "neverOpen",
             "preLaunchTask": "Clang(Build)",
         },
     ]
